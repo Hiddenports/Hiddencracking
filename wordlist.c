@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
 		exit(1);
 	}
 	if((len = atoi(argv[1])) == NULL) {
-		printf("Second parameter is invalid...\n");
+		printf("Parameter is invalid...\n");
 		exit(2);
 	}
 	if(len >= 100) {
