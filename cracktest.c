@@ -1,16 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-/* Wordlist Generator */
+/* Bruteforce Cracktester */
 int main(int argc, char *argv[]) {
-	char c, buffer[100], list[100];
-	int len, id;
-	if(argc < 2) {
-		printf("[ERROR] Usage: %s <length>\n", argv[0]);
+	char c, buffer[100], mode;
+	int len, id, i;
+	mode = '\0';
+	if(argc < 4) {
+		printf("[ERROR] Usage: %s <length> <password>\n", argv[0]);
 		exit(1);
+	} else if (argc == 4) {
+		mode = '\n';
 	}
 	if((len = atoi(argv[1])) == NULL) {
-		printf("Parameter is invalid...\n");
+		printf("Invalid argument: Length must be a number.\n");
 		exit(2);
 	}
 	if(len >= 100) {
@@ -36,10 +39,20 @@ int main(int argc, char *argv[]) {
 			id--;
 		else if(id == (len - 1)) {
 			for(buffer[id] = 49; buffer[id] <= 'z'; buffer[id]++) {
-				printf("%s\n", buffer);
+				printf("%s%c", buffer, mode);
+				if(strcmp(buffer, argv[2]) == 0) {
+					printf("\nYeeah!!!!! I've found it. Your code is %s\n", buffer);
+					return 0;
+				}
 			}
 			id--;
 		}
 	}
-	return 0;
+	printf("\nI didn't find your password...\n");
+	if(strlen(argv[2]) != len) {
+		printf("The length is invalid!\n");
+		exit(1);
+	}
+	printf("Password's got invalid characters.\n");
+	return 1;
 }
